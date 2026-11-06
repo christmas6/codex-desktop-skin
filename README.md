@@ -9,6 +9,7 @@
 | 功能 | 说明 |
 | --- | --- |
 | 动态壁纸 | 本地 MP4 静音循环，切后台自动暂停，回到前台继续 |
+| 多壁纸轮播 | 顺序、随机或按播放时长切换，支持上一张／下一张及各项独立配色 |
 | 配色适配 | 根据壁纸调整文字、按钮、侧栏、菜单及强调色 |
 | 磨砂输入框 | 半透明背景、背景模糊、圆角及清晰的输入文字 |
 | 局部调整 | 按截图隐藏主题浮窗、调整透明度或修复底部接缝 |
@@ -60,6 +61,8 @@ foreach ($entry in @('SKILL.md', 'agents', 'scripts', 'references', 'assets')) {
 使用 $codex-desktop-skin，输入框再透明一点，文字保持清晰。
 使用 $codex-desktop-skin，按这张截图修复底部的横向分界线。
 使用 $codex-desktop-skin，恢复原界面。
+使用 $codex-desktop-skin，把这几个视频按顺序轮播，播完一个再换下一个。
+使用 $codex-desktop-skin，这几个壁纸随机切换，每个最多播放 60 秒，配色随壁纸变化。
 ```
 
 Skill 会引导 Codex 检查素材、制作轻量播放副本、生成主题、应用背景并验证，不会自动关闭或重启当前客户端。
@@ -103,6 +106,28 @@ python -X utf8 .\scripts\skin.py apply --theme-dir .\themes\my-theme
 
 生成的目录包含 `theme.json`、`theme.css`、`inject.js`、`background.mp4`、`poster.jpg`。只应用自己生成或已审阅的主题目录，`inject.js` 会在应用页面内执行。
 
+### 多个壁纸连续播放
+
+提供多个视频和对应封面，默认顺序播完后切换，最后一项播完回到第一项：
+
+```powershell
+python -X utf8 .\scripts\create_theme.py --video .\work\sunset.mp4 .\work\city.mp4 --poster .\work\sunset.jpg .\work\city.jpg --output .\themes\playlist
+python -X utf8 .\scripts\skin.py apply --theme-dir .\themes\playlist
+```
+
+可选参数：`--mode shuffle` 随机切换且不连续重复；`--interval 60` 每项最多播放 60 秒；`--css .\sunset.css .\city.css` 按同一顺序提供各项独立配色。不提供 `--css` 时共用基础样式。
+
+```powershell
+python -X utf8 .\scripts\skin.py next
+python -X utf8 .\scripts\skin.py previous
+python -X utf8 .\scripts\skin.py pause
+python -X utf8 .\scripts\skin.py resume
+```
+
+轮播时后台或手动暂停不累计播放时间，回到前台后继续；视频比指定间隔短时播完即切换。最多 20 项、每项 100 MiB，所有视频总计不超过 200 MiB。播放列表会整体载入内存，建议先压缩素材。切换为直接切换，不保证无缝转场。详细配置见[播放列表说明](references/playlist.md)。
+
+旧的单视频主题仍然可用；给旧主题添加列表时，需要同时换成新版 `assets/template/inject.js`，不能只修改 JSON。
+
 ### 4. 修改样式、查看状态与恢复
 
 修改生成目录中的 `theme.css` 后：
@@ -139,9 +164,13 @@ scripts/create_theme.py   生成主题目录
 assets/template/          CSS 与注入脚本模板
 references/workflow.md    详细制作与验证流程
 references/case-study.md  已验证的修复案例
+references/playlist.md    播放列表配置与切换说明
+tests/                   脚本回归测试与真实浏览器检查
 ```
 
 ## 参考与许可
+
+脚本回归测试：`python -m unittest discover -s tests -v`。可使用 `python tests/browser_smoke.py --browser "你的 Edge/Chromium 路径" --ffmpeg "你的 FFmpeg 路径"` 在独立无界面浏览器中验证真实视频切换，不连接当前 Codex 窗口。
 
 本项目参考以下仓库介绍的 CDP 换肤思路，仓库中的脚本和模板为本项目独立实现：
 

@@ -34,11 +34,11 @@ ffmpeg -hide_banner -nostdin -i SOURCE -map 0:v:0
 
 ## 3. 注入和生命周期
 
-`skin.py apply --theme-dir ...` 通过 512 KiB base64 块传输视频，renderer 内转 Uint8Array，再生成 MP4 Blob URL；无需额外媒体服务器。`inject.js` 在应用前恢复旧实例，避免重复背景。
+`skin.py apply --theme-dir ...` 通过 512 KiB base64 块传输视频，renderer 内转 Uint8Array，再生成 MP4 Blob URL；无需额外媒体服务器。`inject.js` 在应用前恢复旧实例，避免重复背景。多视频的配置、总大小限制和切换方式见 [播放列表](playlist.md)。
 
 原生命名空间为 `window.__nightCity`、`#nc-background`、`#nc-style`、`#nc-controls` 和根节点 `data-night-city`。沿用命名可直接更新现有夜之城主题。应用的主题目录应是自己生成或已审阅的目录，因为其中 JS 会在当前页面执行。
 
-视频 `muted=true`、`loop=true`，显式控制播放。`document.hidden` 时暂停；回到前台后，仅非手动暂停时恢复。后台 `AbortError` 不应设置为用户手动暂停，也不是视频损坏。不要在后台循环强制播放。
+视频 `muted=true`，单视频 `loop=true`；多视频关闭单片循环，由结束事件切换至下一项。`document.hidden` 时暂停；回到前台后，仅非手动暂停时恢复。后台 `AbortError` 不应设置为用户手动暂停，也不是视频损坏。不要在后台循环强制播放。
 
 恢复操作断开 MutationObserver、移除 visibilitychange 监听、暂停并清空视频、释放 Blob URL、删除注入节点和运行状态、还原原根属性与内联亮度。它不撤销另行修改的客户端深色设置。
 

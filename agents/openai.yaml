@@ -1,4 +1,4 @@
 interface:
   display_name: "Codex 桌面换肤"
-  short_description: "制作动态壁纸皮肤，调整配色与磨砂输入框，修复按钮和底部边界"
+  short_description: "制作动态壁纸皮肤与多壁纸轮播，调整配色和磨砂输入框，修复底部边界"
   default_prompt: "使用 $codex-desktop-skin 根据我提供的壁纸或截图制作、调整 Codex 桌面皮肤，并验证实际效果。"
