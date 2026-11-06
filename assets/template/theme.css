@@ -1,0 +1,154 @@
+/* Night City: scoped, session-only Codex Desktop theme. */
+html[data-night-city] {
+  color-scheme: dark !important;
+  --nc-wallpaper: .7;
+  --nc-ink: #e3f3f6;
+  --color-text: #e3f3f6 !important;
+  --color-text-primary: #e3f3f6 !important;
+  --color-text-secondary: #b0c8d0 !important;
+  --color-text-secondary-solid: #b0c8d0 !important;
+  --color-text-tertiary: #94b1bd !important;
+  --color-text-disabled: #74929e !important;
+  --color-text-inverse: #08151c !important;
+  --color-text-foreground: #e3f3f6 !important;
+  --color-text-foreground-secondary: #b0c8d0 !important;
+  --color-text-primary-surface: #e3f3f6 !important;
+  --color-text-primary-soft: #e3f3f6 !important;
+  --color-text-primary-soft-alt: #e3f3f6 !important;
+  --color-text-primary-ghost: #e3f3f6 !important;
+  --color-text-primary-ghost-hover: #ffffff !important;
+  --color-text-primary-outline: #e3f3f6 !important;
+  --color-text-secondary-soft-alt: #b0c8d0 !important;
+  --color-text-secondary-ghost: #b0c8d0 !important;
+  --color-text-secondary-outline: #b0c8d0 !important;
+  --color-text-toolbar-action: #b0c8d0 !important;
+  --color-text-execution-output-label: #b0c8d0 !important;
+  --color-text-composer-primary: #08151c !important;
+  --color-text-accent-action: #08151c !important;
+  --color-text-info: #7edbe8 !important;
+  --color-text-info-solid: #08151c !important;
+  --color-text-info-outline: #7edbe8 !important;
+  --color-text-link: #8be7f2 !important;
+  --color-border: rgba(109, 207, 226, .18) !important;
+  --color-border-primary-outline: rgba(109, 207, 226, .24) !important;
+  --color-border-secondary: rgba(109, 207, 226, .14) !important;
+  --color-border-default: rgba(109, 207, 226, .18) !important;
+  --color-ring: #70d6e9 !important;
+  --color-surface: #0e202b !important;
+  --color-surface-primary: #0e202b !important;
+  --color-surface-secondary: #102632 !important;
+  --color-surface-tertiary: #15303d !important;
+  --color-surface-canvas: #0c1c26 !important;
+  --color-surface-elevated: #112a37 !important;
+  --color-surface-elevated-secondary: #17303c !important;
+  --color-token-main-surface-primary: transparent !important;
+  --color-token-side-bar-background: transparent !important;
+  --color-codex-terminal-background: #0a1922 !important;
+  --codeblock-background-color: #0a1922 !important;
+  --color-background-primary-solid: #9ae5ef !important;
+  --color-background-primary-solid-hover: #c0f2f7 !important;
+  --color-background-primary-solid-active: #7dd3e2 !important;
+  --color-background-primary-surface: rgba(66, 154, 181, .12) !important;
+  --color-background-primary-soft: rgba(55, 119, 145, .19) !important;
+  --color-background-primary-soft-alpha: rgba(55, 119, 145, .19) !important;
+  --color-background-primary-soft-hover: rgba(73, 153, 179, .22) !important;
+  --color-background-primary-soft-active: rgba(73, 153, 179, .3) !important;
+  --color-background-primary-ghost-hover: rgba(73, 153, 179, .18) !important;
+  --color-background-primary-ghost-active: rgba(73, 153, 179, .26) !important;
+  --color-background-secondary-soft: rgba(55, 119, 145, .17) !important;
+  --color-background-secondary-soft-hover: rgba(73, 153, 179, .22) !important;
+  --color-background-secondary-soft-alpha: rgba(55, 119, 145, .17) !important;
+  --color-background-secondary-ghost-hover: rgba(73, 153, 179, .18) !important;
+  --color-background-secondary-ghost-active: rgba(73, 153, 179, .26) !important;
+  --color-background-composer-action-bar: #102632 !important;
+  --color-background-execution-output: #0a1922 !important;
+  --color-background-activity-control: #1b3947 !important;
+  --color-background-tooltip-classic: #142e3a !important;
+  --color-text-tooltip-classic: #e3f3f6 !important;
+  --color-token-scrollbar-slider-background: rgba(129, 196, 212, .24) !important;
+  --color-token-scrollbar-slider-hover-background: rgba(129, 196, 212, .4) !important;
+  --color-token-scrollbar-slider-active-background: rgba(129, 196, 212, .5) !important;
+  --app-color-text-foreground: #e3f3f6 !important;
+  --app-color-text-primary: #e3f3f6 !important;
+  --app-color-text-secondary: #b0c8d0 !important;
+  --app-color-text-foreground-secondary: #b0c8d0 !important;
+  --app-color-text-tertiary: #94b1bd !important;
+  --app-color-background-surface: #0e202b !important;
+  --app-color-background-editor-opaque: #0a1922 !important;
+  --app-color-background-elevated: #112a37 !important;
+  --app-color-background-elevated-secondary: #17303c !important;
+  --app-color-background-application-menu: #142e3a !important;
+  --app-color-background-card: #102632 !important;
+  --app-color-background-accent: #61cde0 !important;
+  --app-color-background-accent-hover: #83dfed !important;
+  --app-color-background-button-tertiary-active: rgba(73, 153, 179, .26) !important;
+}
+html[data-night-city], html[data-night-city] body {
+  background: #08141c !important;
+  color: var(--nc-ink) !important;
+}
+html[data-night-city] body { background: transparent !important; }
+html[data-night-city] #root { position: relative; z-index: 1; background: transparent !important; }
+#nc-background { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #08141c; }
+#nc-background video { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; opacity: var(--nc-wallpaper); }
+#nc-background::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(3,12,20,.4), rgba(3,12,20,.12) 45%, rgba(3,12,20,.3)); }
+html[data-night-city] .app-shell-left-panel { background: rgba(6,19,29,.77) !important; border-color: rgba(109,207,226,.16) !important; }
+html[data-night-city] main { background: rgba(5,17,27,.56) !important; }
+html[data-night-city] [class*="MainContentViewport"],
+html[data-night-city] [class*="MainContentFrame"],
+html[data-night-city] [class*="MainContentClip"],
+html[data-night-city] [class*="WorkspaceContent"] { background: transparent !important; }
+html[data-night-city] [data-testid="app-shell-header-context-menu-surface"] { background: rgba(7,22,32,.7) !important; border-radius: 9px; }
+/* Keep the wallpaper continuous beneath the floating composer. */
+html[data-night-city] [data-thread-scroll-footer="true"],
+html[data-night-city] [data-thread-scroll-footer="true"]::before,
+html[data-night-city] [data-thread-scroll-footer="true"]::after,
+html[data-night-city] [class*="background-"][class*="fade-"],
+html[data-night-city] [data-thread-scroll-footer="true"] [class*="background-"][class*="surface-"] {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+html[data-night-city] [class*="ComposerLayoutRoot"] {
+  background: linear-gradient(135deg, rgba(29, 58, 70, .32), rgba(6, 22, 32, .38)) !important;
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  border: 1px solid rgba(149, 214, 228, .22) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 28px rgba(0, 8, 15, .2), inset 0 0 0 1px rgba(149, 214, 228, .18), inset 0 1px 0 rgba(205, 241, 248, .08);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+html[data-night-city] [class*="ComposerLayoutRoot"]:focus-within {
+  border-color: rgba(139, 218, 235, .4) !important;
+  box-shadow: 0 8px 30px rgba(0, 8, 15, .22), inset 0 0 0 1px rgba(139, 218, 235, .32), inset 0 1px 0 rgba(205, 241, 248, .1);
+}
+html[data-night-city] [class*="ComposerLayoutRoot"] [data-composer-body],
+html[data-night-city] [class*="ComposerLayoutRoot"] [data-composer-input],
+html[data-night-city] [class*="ComposerLayoutRoot"] [data-composer-footer-responsive] {
+  background: transparent !important;
+}
+html[data-night-city] [class*="ComposerLayoutRoot"] .composer-attachment-surface {
+  background: rgba(30, 63, 77, .34) !important;
+  border-color: rgba(149, 214, 228, .18) !important;
+}
+html[data-night-city] [class*="ComposerLayoutRoot"] .composer-attachment-surface:hover {
+  background: rgba(44, 84, 99, .48) !important;
+}
+html[data-night-city] [class*="ComposerLayoutRoot"] [data-placeholder]::before {
+  color: #a4bdc7 !important;
+  opacity: .9;
+}
+html[data-night-city] .ProseMirror { color: #e3f3f6 !important; caret-color: #8ce9f6; }
+html[data-night-city] [role="dialog"], html[data-night-city] [role="menu"], html[data-night-city] [role="listbox"] { background: #102632 !important; color: #e3f3f6 !important; }
+html[data-night-city] pre { background: #0a1922 !important; }
+html[data-night-city] ::selection { background: rgba(73,188,215,.35); }
+#nc-controls { display: none !important; position: fixed; right: 18px; top: 50px; z-index: 1000; font: 12px/1.5 -apple-system, 'Segoe UI', 'Microsoft YaHei', sans-serif; color: #dff5f9; -webkit-app-region: no-drag; }
+#nc-controls summary { list-style: none; cursor: pointer; padding: 6px 10px; border-radius: 16px; background: rgba(8,28,39,.92); border: 1px solid rgba(109,207,226,.3); box-shadow: 0 4px 14px #0003; user-select: none; }
+#nc-controls summary::-webkit-details-marker { display: none; }
+#nc-controls[open] summary { border-color: #70d6e9; }
+#nc-controls section { position: absolute; right: 0; top: 38px; width: 210px; padding: 16px; background: #0d2633; border: 1px solid #305866; border-radius: 14px; box-shadow: 0 12px 35px #0006; }
+#nc-controls strong { display: block; font-size: 14px; margin-bottom: 12px; }
+#nc-controls button { display: block; width: 100%; padding: 7px 10px; margin-top: 9px; border: 1px solid #315866; border-radius: 8px; background: #153746; color: #e3f3f6; cursor: pointer; font: inherit; }
+#nc-controls button:hover { background: #1d485a; }
+#nc-controls label { display: block; color: #bad4dd; margin-bottom: 9px; }
+#nc-controls input { display: block; width: 100%; accent-color: #77ddeb; margin-top: 8px; }
+#nc-controls small { display: block; margin-top: 12px; color: #9cb8c4; }
