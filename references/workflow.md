@@ -48,13 +48,14 @@ ffmpeg -hide_banner -nostdin -i SOURCE -map 0:v:0
 
 后续反馈通常只需改 `theme.css` 并运行 `style`：替换 `#nc-style.textContent`，验证视频源未变化。这样不重新传输、不重置播放、不丢编辑器内容。不要使用整页 reload 来应用 CSS。
 
-针对浮窗、磨砂框、原生按钮及底部边界，读取 [案例修复](case-study.md)。只改用户指出的区域，检查实际 DOM 和伪元素及相邻层，不因一次选择器零命中就认定问题消失。
+针对浮窗、磨砂框、原生按钮、顶部黑框及上下接缝，读取 [案例修复](case-study.md)。只改用户指出的区域，检查实际 DOM 和伪元素及相邻层，不因一次选择器零命中就认定问题消失。
 
 ## 5. 验证与交付
 
 - `status` 检查单一背景层、视频尺寸/时长、静音循环与错误状态。前台相隔短时间检查 currentTime 增长；后台 paused=true 合理。
 - 隐藏浮窗检查 computed display 为 none，client rects 为 0。模板默认隐藏，但其他用户可要求显示。
 - 输入框检查 `.ProseMirror` 仍可编辑，`elementFromPoint` 命中编辑器或其子节点，磨砂背景透明度适当；不发送测试消息。
+- 顶部检查标题表面、包含它的 header 和独立 `MainContentTopFade`（含伪元素），确认背景透明、渐变和模糊已清除；标题可能挂载在表面外，应检查实际可见文字的 color 与 -webkit-text-fill-color。模板标题色可自定义，不沿用其他用户的个人色值。
 - 底部渐变检查实际节点的 backgroundImage 为 none、颜色透明，并查看截图；如 fades 数组为空，需重新定位，不能直接宣布成功。
 - CDP 截图直接调用 `Page.captureScreenshot`，不要等待后台会被暂停的 requestAnimationFrame。截图可能包含聊天隐私，仅本地保存。
 - 原生标题栏按钮可能不出现在 CDP 截图里，应使用 Windows 屏幕捕获检查；操作前确认前台目标，避免把快捷键发到其他应用。

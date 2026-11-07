@@ -3,6 +3,7 @@ html[data-night-city] {
   color-scheme: dark !important;
   --nc-wallpaper: .7;
   --nc-ink: #e3f3f6;
+  --nc-title-color: var(--nc-ink);
   --color-text: #e3f3f6 !important;
   --color-text-primary: #e3f3f6 !important;
   --color-text-secondary: #b0c8d0 !important;
@@ -98,7 +99,35 @@ html[data-night-city] [class*="MainContentViewport"],
 html[data-night-city] [class*="MainContentFrame"],
 html[data-night-city] [class*="MainContentClip"],
 html[data-night-city] [class*="WorkspaceContent"] { background: transparent !important; }
-html[data-night-city] [data-testid="app-shell-header-context-menu-surface"] { background: rgba(7,22,32,.7) !important; border-radius: 9px; }
+/* The header surface and the independent fade below it must both be clear. */
+html[data-night-city] [data-testid="app-shell-header-context-menu-surface"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+}
+html[data-night-city] [class*="MainContentTopFade"],
+html[data-night-city] [class*="MainContentTopFade"]::before,
+html[data-night-city] [class*="MainContentTopFade"]::after {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html[data-night-city] header:has([data-testid="app-shell-header-context-menu-surface"]) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
+}
+/* The visible title can be mounted outside the context-menu surface. */
+html[data-night-city] [class*="app-shell-header-toolbar"] [class~="font-medium"][class~="truncate"],
+html[data-night-city] [class*="app-shell-header-toolbar"] [class~="font-medium"][class~="truncate"] * {
+  color: var(--nc-title-color) !important;
+  -webkit-text-fill-color: var(--nc-title-color) !important;
+}
 /* Keep the wallpaper continuous beneath the floating composer. */
 html[data-night-city] [data-thread-scroll-footer="true"],
 html[data-night-city] [data-thread-scroll-footer="true"]::before,

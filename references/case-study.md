@@ -1,4 +1,4 @@
-# 夜之城案例：用户反馈与最终修复
+# 换肤案例：用户反馈与修复依据
 
 以下为开发验证案例的视觉选择。复用方法，具体颜色和隐藏项目以当前请求为准。
 
@@ -69,6 +69,14 @@ html[data-night-city] [data-thread-scroll-footer="true"] [class*="background-"][
 最后全局定位实际 fade 节点，验证 backgroundImage 为 none、backgroundColor 为 rgba(0,0,0,0)，并看实际截图确认壁纸连续。注意 Composer 自身的淡描边是用户所要磨砂框的一部分，不能为了去横线一起抹掉。
 
 模板的 fade 选择器是当前版本的经验选择器。新版若复用相似类名，先检查匹配节点范围，再决定是否改用更具体的结构关系。
+
+## 后续案例：顶部黑框和正文未连成整体
+
+在 Windows Store Codex 26.1103.4239.0 上，标题表面 `[data-testid="app-shell-header-context-menu-surface"]` 的深色背景形成黑框。仅降低透明度并加模糊仍形成独立矩形；其下方还存在约 16px 高的兄弟渐变层 `MainContentTopFade-*`，并不属于标题表面。
+
+模板同时清除标题表面的背景、模糊、边框、圆角和阴影，清除 `MainContentTopFade` 及其伪元素的背景、模糊、边框和阴影，并清除包含标题表面的 `header` 底色、底边与阴影。对应 CSS 位于 `assets/template/theme.css` 的 header 段。查看截图并检查实际计算样式；选择器零命中时重新定位，不能据此认定接缝已消失。类名可能随版本变化，应检查匹配范围，保留仍有用途的控件样式。
+
+可见标题可能挂载在表面外。当前已验证的定位是 `[class*="app-shell-header-toolbar"] [class~="font-medium"][class~="truncate"]` 及其子元素；只修改表面父节点的颜色可能不会改变实际标题。模板通过 `--nc-title-color` 同时设置 `color` 与 `-webkit-text-fill-color`，默认跟随 `--nc-ink`。颜色由当前用户自定义；不要把开发者或其他用户的个人标题颜色固定进公共模板。
 
 ## 已支持与边界
 

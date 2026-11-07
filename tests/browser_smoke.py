@@ -101,7 +101,31 @@ try:
     single={'video':original['playlist'][0]['video'],'poster':original['playlist'][0]['poster']}
     apply(single)
     check('single-video manifest still loops',client.evaluate('window.__nightCity.video.loop && window.__nightCity.playlistStatus().count===1'))
+    client.evaluate('''(() => {
+      const baseline=document.createElement('style');
+      baseline.textContent=`#fixture-header,#fixture-surface { background:#201020; border:1px solid black; box-shadow:0 2px 4px black; backdrop-filter:blur(10px) }
+        #fixture-fade,#fixture-fade::before,#fixture-fade::after { content:''; background:linear-gradient(#201020,transparent); border:1px solid black; box-shadow:0 2px 4px black; backdrop-filter:blur(10px) }
+        #fixture-title,#fixture-title span { color:#123456; -webkit-text-fill-color:#123456 }`;
+      document.head.prepend(baseline);
+      const host=document.createElement('section');host.id='header-fixture';
+      host.innerHTML='<header id="fixture-header"><div id="fixture-surface" data-testid="app-shell-header-context-menu-surface"></div><div class="Toolbar-test @container/app-shell-header-toolbar"><div id="fixture-title" class="font-medium truncate"><span>Visible title outside surface</span></div></div></header><div id="fixture-fade" class="MainContentTopFade-test"></div>';
+      document.body.append(host);return true;
+    })()''')
+    check('header and surface have no separate background or border',client.evaluate('''['fixture-header','fixture-surface'].every(id=>{
+      const s=getComputedStyle(document.getElementById(id));return s.backgroundColor==='rgba(0, 0, 0, 0)' && s.backgroundImage==='none' && s.boxShadow==='none' && s.borderBottomWidth==='0px';
+    }) && getComputedStyle(document.getElementById('fixture-surface')).backdropFilter==='none' '''))
+    check('top fade and both pseudo elements are clear',client.evaluate('''['','::before','::after'].every(p=>{
+      const s=getComputedStyle(document.getElementById('fixture-fade'),p||null);return s.backgroundImage==='none' && s.backgroundColor==='rgba(0, 0, 0, 0)' && s.boxShadow==='none' && s.borderBottomWidth==='0px' && s.backdropFilter==='none';
+    })'''))
+    check('visible title and child default to body ink',client.evaluate('''[document.getElementById('fixture-title'),document.querySelector('#fixture-title span')].every(el=>{
+      const s=getComputedStyle(el);return s.color==='rgb(227, 243, 246)' && s.webkitTextFillColor===s.color;
+    })'''))
+    client.evaluate("document.getElementById('nc-style').textContent+='\\nhtml[data-night-city] { --nc-title-color: #a8d8ea; }';true")
+    check('custom title color reaches actual visible text',client.evaluate('''[document.getElementById('fixture-title'),document.querySelector('#fixture-title span')].every(el=>{
+      const s=getComputedStyle(el);return s.color==='rgb(168, 216, 234)' && s.webkitTextFillColor===s.color;
+    })'''))
     client.evaluate('window.__nightCity.restore();true')
+    check('restore returns original header and title styles',client.evaluate("getComputedStyle(document.getElementById('fixture-surface')).backgroundColor==='rgb(32, 16, 32)' && getComputedStyle(document.querySelector('#fixture-title span')).color==='rgb(18, 52, 86)'"))
     check('draft content unchanged',client.evaluate("document.querySelector('.ProseMirror').textContent==='draft stays here'"))
     (work/'validation.json').write_text(json.dumps({'checks':checks,'passed':len(checks),'browser':'Microsoft Edge headless','realH264Playback':True},ensure_ascii=False,indent=2),encoding='utf-8')
 finally:
